@@ -18,15 +18,24 @@ let dbConnectionPromise = null;
 function connectToDatabase() {
   if (!dbConnectionPromise) {
     const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ai_tutor";
-    dbConnectionPromise = mongoose
-      .connect(mongoUri)
-      .then(() => {
-        console.log("MongoDB connected!");
-      })
-      .catch((error) => {
-        console.log("MongoDB connection error:", error);
-      });
+    dbConnectionPromise = async function connectDatabase() {
+  try {
+    if (!mongoUri) {
+      throw new Error("MONGO_URI is not defined in .env");
+    }
+
+    await mongoose.connect(mongoUri);
+
+    console.log("MongoDB connected successfully!");
+  } catch (error) {
+    console.error("MongoDB connection failed:");
+    console.error(error.message);
+
+    process.exit(1);
   }
+}
+
+connectDatabase();
 
   return dbConnectionPromise;
 }
