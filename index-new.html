@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Tutor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-animation"></div>
+
+  <div class="container">
+    <div class="avatar-container">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="AI Avatar" class="avatar" />
+      <h1>📚 AI Tutor</h1>
+    </div>
+
+    <div class="hero-card">
+      <p>Learn faster with a personal AI tutor.</p>
+      <p>Create an account or sign in to start chatting.</p>
+      <div class="btn-row">
+        <a href="/register" class="action-link">Create Account</a>
+        <a href="/login" class="action-link secondary">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('ai_tutor_token')) {
+        window.location.href = '/tutor';
+      }
+    });
+  </script>
+</body>
+</html>

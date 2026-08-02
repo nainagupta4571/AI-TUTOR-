@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Learning Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-animation"></div>
+
+  <div class="container">
+    <div class="avatar-container">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="AI Avatar" class="avatar" />
+      <h1>📚 AI Learning Assistant</h1>
+    </div>
+
+    <div class="mode-theme">
+      <span id="mode-theme">🌙 Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+      <div class="bot-msg animate-in">Hi! I'm your AI Tutor. Ask me anything.</div>
+    </div>
+
+    <div class="mode-toggle">
+      <span id="mode-label">🧠 Tutor Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="quiz-toggle" onchange="toggleMode()" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button id="export-btn" onclick="exportToPDF()">📄 Export PDF</button>
+      <button id="export-docx-btn" onclick="exportToDOCX()">📄 Export DOCX</button>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type your question here..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

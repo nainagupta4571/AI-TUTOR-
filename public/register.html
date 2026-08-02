@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Tutor - Register</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #eef1f7,
+                #d1f4ff
+            );
+        }
+
+        .register-box {
+
+            width: 380px;
+
+            max-width: 90%;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.15);
+
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 15px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #4caf50;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        #message {
+
+            margin-top: 15px;
+
+            font-weight: bold;
+        }
+
+        a {
+
+            display: block;
+
+            margin-top: 18px;
+
+            color: #1976d2;
+
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="register-box">
+
+        <h1>📚 AI Tutor</h1>
+
+        <p>Create your account</p>
+
+
+        <form id="registerForm">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Your Name"
+                required
+            >
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                required
+            >
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                minlength="6"
+                required
+            >
+
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div id="message"></div>
+
+
+        <a href="/login.html">
+            Already have an account? Login
+        </a>
+
+    </div>
+
+
+    <script>
+
+        const form =
+            document.getElementById("registerForm");
+        const apiBase = window.location.protocol === "file:" ? "http://localhost:5000" : "";
+
+        if (window.location.protocol === "file:") {
+            document.getElementById("message").style.color = "blue";
+            document.getElementById("message").textContent = "Opening through the local server...";
+            window.location.replace("http://localhost:5000/register");
+        }
+
+        form.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document.getElementById("name").value;
+
+                const email =
+                    document.getElementById("email").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+
+                const message =
+                    document.getElementById("message");
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${apiBase}/api/register`,
+                            {
+
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+                                    name,
+                                    email,
+                                    password
+                                })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        message.style.color =
+                            "green";
+
+                        message.textContent =
+                            "Registration successful!";
+
+
+                        setTimeout(
+                            () => {
+
+                                window.location.href =
+                                    `${apiBase}/login`;
+
+                            },
+                            1000
+                        );
+
+
+                    } else {
+
+                        message.style.color =
+                            "red";
+
+                        message.textContent =
+                            data.message;
+
+                    }
+
+
+                } catch (error) {
+
+                    console.log(error);
+
+                    message.style.color =
+                        "red";
+
+                    message.textContent =
+                        "Could not connect to server.";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
