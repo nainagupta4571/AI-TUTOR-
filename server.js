@@ -1,4 +1,5 @@
-const { app } = require("./app");
+const appModule = require("./app");
+const app = typeof appModule === "function" ? appModule : appModule.app || appModule;
 
 const PORT = process.env.PORT || 5000;
 
@@ -8,4 +9,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { app };
+module.exports = app;
